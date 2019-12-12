@@ -26,9 +26,6 @@ public class MessageServiceImpl implements MessageService {
         AsyncRabbitTemplate.RabbitMessageFuture future = asyncRabbitTemplate.sendAndReceive(BOOKING_FLAGGED,
                 new Message("{ \"message\": \"test\"}".getBytes(), new MessageProperties()));
 
-        ListenableFuture<Object> objectListenableFuture = asyncAmqpTemplate.convertSendAndReceive("", "{ \"message\": \"test\"}");
-        objectListenableFuture.get();
-
         future.completable()
                 .thenApply(Message::getBody)
                 .thenApply(String::new)
