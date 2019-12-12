@@ -14,8 +14,6 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 @Configuration
 public class AmqpConfiguration {
-
-    public static final String BOOKING_EVENT_QUEUE = "bookingEventQueue";
     private final RabbitTemplate rabbitTemplate;
 
     @PostConstruct
@@ -27,10 +25,5 @@ public class AmqpConfiguration {
             log.info("Returned: " + message + "\nreplyCode: " + replyCode
                     + "\nreplyText: " + replyText + "\nexchange/rk: " + exchange + "/" + routingKey);
         });
-    }
-
-    @Bean
-    public Queue bookingEventQueue() {
-        return new Queue(BOOKING_EVENT_QUEUE);
     }
 }
